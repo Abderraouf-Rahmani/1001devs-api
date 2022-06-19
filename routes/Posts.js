@@ -101,7 +101,7 @@ router.get('/', async (req, res)=>{
 router.get('/read/:title', async (req, res)=>{
   
   const title = req.params.title
-  let regExp = /[a-z0-9-()]/;
+  let regExp = /[a-z0-9-()?]/;
   try{
     if (!regExp.test(title))  {res.status(500).json('the title can only contain alphnemericals and dashs')}
     let postTitle= title.split('-').join(' ')
