@@ -19,6 +19,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  skills:{
+    type: String,
+  },
+  about:{
+    type: String,
+  },
   profilePic: {
     type: String,
     default: ''
