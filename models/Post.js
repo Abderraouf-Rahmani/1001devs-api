@@ -4,11 +4,13 @@ const postSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    index: true
   },
   desc: {
     type: Array,
-    required: true
+    required: true,
+    index: true
   },
   username: {
     type: String,

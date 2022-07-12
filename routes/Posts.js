@@ -97,6 +97,22 @@ router.get('/', async (req, res)=>{
   }
 })
 
+//GET SEARCHED POSTS
+
+router.get('/search', async (req, res) =>{
+  const searchStr = req.query.search
+  try{
+    const posts = await Post.find(
+      {$or: [{$text: { $search: searchStr}}]});
+
+    res.status(200).json(posts)
+      
+  
+  }catch(err){
+    res.status(500).json(err)
+  }
+})
+
 //GET a POST
 router.get('/read/:title', async (req, res)=>{
   
