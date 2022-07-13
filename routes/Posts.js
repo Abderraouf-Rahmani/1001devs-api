@@ -4,14 +4,18 @@ const Post = require('../models/Post');
 const bcrypt = require('bcrypt');
 
 
+
 //WRITE
 
 router.post('/write', async (req, res)=>{
     
       try{
+        // check if there is a post with the same title
+
            
         const post = new Post({
             title: req.body.title,
+            titleId: req.body.title,
             desc: req.body.desc,
             username: req.body.username,
             categories: req.body.categories
@@ -22,7 +26,7 @@ router.post('/write', async (req, res)=>{
         res.status(200).json(post)
           
       } catch(err){
-        res.status(500).json(err)
+        res.status(500).json({message : err.message})
       }
         
       
@@ -89,7 +93,7 @@ router.get('/', async (req, res)=>{
             $in:[c]
         }})
       }else{
-        posts = await Post.find()
+        posts = await Post.find({}, null, {limit: 8})
       }
       res.status(200).json(posts)
   }catch(err){
@@ -98,21 +102,17 @@ router.get('/', async (req, res)=>{
 })
 
 //GET a POST
-router.get('/read/:title', async (req, res)=>{
+router.get('/read/:id', async (req, res)=>{
   
-  const title = req.params.title
-  let regExp = /[a-z0-9-()?]/;
+  const postId = req.params.id
   try{
-    if (!regExp.test(title))  {res.status(500).json('the title can only contain alphnemericals and dashs')}
-    let postTitle= title.split('-').join(' ')
-    const thePost = await Post.find({title: postTitle})
-    if(thePost.length > 0) {
+    const thePost = await Post.findById(postId)
+    
       res.status(200).json(thePost)
-    }else{res.status(404).json('no post with such title')}
     
 
 }catch(err){
-  res.status(500).json(err)
+  res.status(500).json({message: err.message})
 }
 })
 module.exports = router;
