@@ -103,9 +103,10 @@ router.get('/search', async (req, res) =>{
   const searchStr = req.query.search
   try{
     const posts = await Post.find(
-      {$or: [{$text: { $search: searchStr}}]});
-
-    res.status(200).json(posts)
+        { $text : {$search: req.body.search} },
+         { score : { $meta: "textScore" } }
+      ).sort({score:{$meta:"textScore"}})
+res.status(200).json(results)
       
   
   }catch(err){
