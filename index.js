@@ -43,6 +43,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/categories", categoryRoute);
+app.get('/', (req, res) => { res.send('Hello from Express!')})
 
 app.listen(process.env.PORT || "3030", () => {
   console.log("Backend is running.");
