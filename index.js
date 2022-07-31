@@ -11,7 +11,7 @@ const path = require("path");
 
 dotenv.config();
 app.use(express.json());
-
+const PORT = process.env.PORT || 3030;
 mongoose
   .connect(process.env.MONGO_URL)
   .then(console.log("Connected to MongoDB"))
@@ -45,6 +45,6 @@ app.use("/api/posts", postRoute);
 app.use("/api/categories", categoryRoute);
 app.get('/', (req, res) => { res.send('Hello from Express!')})
 
-app.listen(process.env.PORT || "3030", () => {
+app.listen(PORT, () => {
   console.log("Backend is running.");
 });
