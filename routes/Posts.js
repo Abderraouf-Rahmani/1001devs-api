@@ -18,6 +18,7 @@ router.post('/write', async (req, res)=>{
             titleId: req.body.title,
             desc: req.body.desc,
             username: req.body.username,
+            userid: req.body.userid,
             categories: req.body.categories
         })
 
@@ -35,7 +36,7 @@ router.post('/write', async (req, res)=>{
 
 //update
 
-router.put('/:id', async (req, res)=>{
+router.put('/:id', async (req, res)=>{ 
             try{
 
                 const post = await Post.findById(req.params.id)
@@ -82,8 +83,8 @@ router.delete('/:id', async (req, res)=>{
 
 router.get('/', async (req, res)=>{
     const username = req.query.user
+    const postNum = req.query.limit
     const c = req.query.c
-    const title = req.query.title
   try{
       let posts;
       if(username){
@@ -92,10 +93,30 @@ router.get('/', async (req, res)=>{
         posts = await Post.find({categories:{
             $in:[c]
         }})
+      }else if(postNum){
+        posts = await Post.find().limit(postNum)
       }else{
-        posts = await Post.find({}, null, {limit: 8})
+        posts = await Post.find()
       }
       res.status(200).json(posts)
+  }catch(err){
+    res.status(500).json(err)
+  }
+})
+
+//GET SEARCHED POSTS
+
+router.get('/search/:s', async (req, res) =>{
+  const searchStr = req.params.s
+  try{
+    const posts = await Post.find(
+        { $text : {$search: searchStr} },
+         { score : { $meta: "textScore" } }
+      ).sort({score:{$meta:"textScore"}})
+      
+res.status(200).json(posts)
+      
+  
   }catch(err){
     res.status(500).json(err)
   }

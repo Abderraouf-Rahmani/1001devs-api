@@ -55,7 +55,7 @@ router.get('/:id', async (req, res)=>{
       const {password, ...userInfos} = user._doc
       res.status(200).json(userInfos)
   }catch(err){
-    res.status(500).json(err)
+    res.status(500).json(err.message)
   }
 })
 
