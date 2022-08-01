@@ -8,7 +8,7 @@
     "npm": "8.8.0"
   },
   "scripts": {
-    "start": "index.js"
+    "start": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
