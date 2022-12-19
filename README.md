@@ -4,7 +4,7 @@
 </div>
 
 ### Getting Started
-📍 Before moving forward, please note that this repo is only for the bach-end of the project, you can visit the back-end [here](https://github.com/Abderraouf-Rahmani/1001devs-client).
+📍 Before moving forward, please note that this repo is only for the back-end of the project, you can visit the front-end [here](https://github.com/Abderraouf-Rahmani/1001devs-client).
 #### Prerequisites
 To run this project on your local machine make sure you have the latest package manager installed:
 ```sh
